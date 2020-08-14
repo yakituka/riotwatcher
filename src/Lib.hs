@@ -2,28 +2,44 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module Lib
-    ( someFunc,
-      getFreeRotationChampions
+    (
+        champion_rotations,
+        summoner_by_name,
+        ChampionInfo(..),
+        SummonerDTO(..),
+        Region(..)
     ) where
 
 import Network.HTTP.Simple
 import Data.Aeson
 import GHC.Generics
 
-data Champions = Champions { freeChampionIds :: [Int], freeChampionIdsForNewPlayers :: [Int], maxNewPlayerLevel :: Int } deriving (Show, Generic)
-instance FromJSON Champions
+data ChampionInfo = ChampionInfo { freeChampionIds :: [Int], freeChampionIdsForNewPlayers :: [Int], maxNewPlayerLevel :: Int } deriving (Show, Generic)
+instance FromJSON ChampionInfo
 
---api_key = "RGAPI-d4e70b01-83f2-4d2f-bbc8-49e7aff6b8d0"
+data SummonerDTO = SummonerDTO { id :: String, accountId :: String, puuid :: String, name :: String, profileIconId :: Int, revisionDate :: Int, summonerLevel :: Int } deriving (Show, Generic)
+instance FromJSON SummonerDTO
 
-getFreeRotationChampions :: IO (Maybe [Int])
-getFreeRotationChampions = do
-    res <- httpLbs "https://jp1.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=RGAPI-d4e70b01-83f2-4d2f-bbc8-49e7aff6b8d0"
-    let ans = decode (getResponseBody res) :: Maybe Champions
-    pure $ freeChampionIds <$> ans
+type Api_key = String
 
-test = do
-    res <- httpLbs "http://ddragon.leagueoflegends.com/cdn/10.16.1/data/ja_JP/champion.json"
-    
+data Region = JP | NA
+instance Show Region where
+    show JP = "jp1"
+    show NA = "na1"
 
-someFunc :: IO ()
-someFunc = putStrLn "someFunc"
+--フリーチャンピオンに関する情報を取得する。
+champion_rotations :: Api_key -> Region -> IO (Maybe ChampionInfo)
+champion_rotations api_key region = do
+    url <- parseRequest $ "https://" ++ show region ++ ".api.riotgames.com/lol/platform/v3/champion-rotations?api_key=" ++ api_key
+    res <- httpLbs url
+    pure $ ( decode (getResponseBody res) :: Maybe ChampionInfo )
+
+--サモナーの情報を名前から取得する。
+summoner_by_name :: Api_key -> Region -> String -> IO (Maybe SummonerDTO)
+summoner_by_name api_key region name = do
+    url <- parseRequest $ "https://" ++ show region ++ ".api.riotgames.com/lol/summoner/v4/summoners/by-name/" ++ name ++ "?api_key=" ++ api_key
+    res <- httpLbs url
+    pure $ ( decode (getResponseBody res) :: Maybe SummonerDTO )
+
+--test = do
+--    res <- httpLbs "http://ddragon.leagueoflegends.com/cdn/10.16.1/data/ja_JP/champion.json"
