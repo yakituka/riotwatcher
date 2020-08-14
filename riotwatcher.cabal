@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: f982b097a148a3835bc9ca0ec26fa9c7e30e4d228210384fe302fd46db2214ff
+-- hash: f03b12be6d07d6314c2277408bba8baa8366eeb26aa5d36f4c25b2113553b5ef
 
 name:           riotwatcher
 version:        0.1.0.0
@@ -27,7 +27,9 @@ source-repository head
 
 library
   exposed-modules:
-      Lib
+      Champion
+      LoLDatas
+      Summoner
   other-modules:
       Paths_riotwatcher
   hs-source-dirs:
