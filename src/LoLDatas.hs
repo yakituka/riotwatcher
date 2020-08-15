@@ -73,7 +73,6 @@ data CurrentGameParticipant = CurrentGameParticipant
     , profileIconId :: Int
     , bot :: Bool
     , teamId :: Int
-    , current_teamId :: Int
     , summonerName :: String
     , summonerId :: String
     , spell1Id :: Int
