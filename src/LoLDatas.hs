@@ -1,9 +1,16 @@
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
 
 module LoLDatas
     (
         ChampionInfo(..),
         SummonerDTO(..),
+        CurrentGameInfo(..),
+        BannedChampion(..),
+        Observer(..),
+        CurrentGameParticipant(..),
+        Perks(..),
+        GameCustomizationObject(..),
         Api_key,
         Region(..)
     ) where
@@ -12,11 +19,78 @@ import Network.HTTP.Simple
 import Data.Aeson
 import GHC.Generics
 
-data ChampionInfo = ChampionInfo { freeChampionIds :: [Int], freeChampionIdsForNewPlayers :: [Int], maxNewPlayerLevel :: Int } deriving (Show, Generic)
 instance FromJSON ChampionInfo
-
-data SummonerDTO = SummonerDTO { id :: String, accountId :: String, puuid :: String, name :: String, profileIconId :: Int, revisionDate :: Int, summonerLevel :: Int } deriving (Show, Generic)
 instance FromJSON SummonerDTO
+instance FromJSON CurrentGameInfo
+instance FromJSON BannedChampion
+instance FromJSON Observer
+instance FromJSON CurrentGameParticipant
+instance FromJSON Perks
+instance FromJSON GameCustomizationObject
+
+data ChampionInfo = ChampionInfo
+    { freeChampionIds :: [Int]
+    , freeChampionIdsForNewPlayers :: [Int]
+    , maxNewPlayerLevel :: Int } deriving (Show, Generic)
+
+data SummonerDTO = SummonerDTO
+    { id :: String
+    , accountId :: String
+    , puuid :: String
+    , name :: String
+    , profileIconId :: Int
+    , revisionDate :: Int
+    , summonerLevel :: Int
+    } deriving (Show, Generic)
+
+data CurrentGameInfo = CurrentGameInfo
+    { gameId :: Int
+    , gameType :: String
+    , gameStartTime :: Int
+    , mapId :: Int
+    , gameLength :: Int
+    , platformId :: String
+    , gameMode :: String
+    , bannedChampions :: [BannedChampion]
+    , gameQueueConfigId :: Int
+    , observers :: Observer
+    , participants :: [CurrentGameParticipant]
+    } deriving (Show, Generic)
+
+data BannedChampion = BannedChampion
+    { pickTurn :: Int
+    , championId :: Int
+    , teamId :: Int
+    } deriving (Show, Generic)
+
+data Observer = Observer
+    { encryptionKey :: String    
+    } deriving (Show, Generic)
+
+data CurrentGameParticipant = CurrentGameParticipant
+    { championId :: Int
+    , perks :: Perks
+    , profileIconId :: Int
+    , bot :: Bool
+    , teamId :: Int
+    , current_teamId :: Int
+    , summonerName :: String
+    , summonerId :: String
+    , spell1Id :: Int
+    , spell2Id :: Int
+    , gameCustomizationObjects :: [GameCustomizationObject]
+    } deriving (Show, Generic)
+
+data Perks = Perks
+    { perkIds :: [Int]
+    , perkStyle :: Int
+    , perkSubStyle :: Int
+    } deriving (Show, Generic)
+
+data GameCustomizationObject = GameCustomizationObject
+    { category :: String
+    , content :: String
+    } deriving (Show, Generic)
 
 type Api_key = String
 
