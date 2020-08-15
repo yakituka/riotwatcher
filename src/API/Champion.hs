@@ -1,4 +1,4 @@
-module Champion
+module API.Champion
     (
         champion_rotations
     ) where

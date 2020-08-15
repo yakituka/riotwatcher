@@ -1,4 +1,4 @@
-module Spectator
+module API.Spectator
     (
         spectator_by_summoner
     ) where
