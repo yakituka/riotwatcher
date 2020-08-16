@@ -1,4 +1,4 @@
-module Summoner
+module API.Summoner
     (
         summoner_by_account,
         summoner_by_id,
