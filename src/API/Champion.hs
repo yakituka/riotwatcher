@@ -1,6 +1,5 @@
 module API.Champion
-    (
-        champion_rotations
+    ( champion_rotations
     ) where
 
 import LoLDatas

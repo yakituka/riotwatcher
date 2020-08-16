@@ -1,9 +1,8 @@
 module API.Summoner
-    (
-        summoner_by_account,
-        summoner_by_id,
-        summoner_by_name,
-        summoner_by_puuid
+    ( summoner_by_account
+    , summoner_by_id
+    , summoner_by_name
+    , summoner_by_puuid
     ) where
 
 import LoLDatas

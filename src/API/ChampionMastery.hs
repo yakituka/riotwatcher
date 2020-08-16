@@ -1,5 +1,5 @@
 module API.ChampionMastery
-  ( champion_mastery,
+  ( champion_mastery
   )
 where
 
