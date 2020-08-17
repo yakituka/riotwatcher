@@ -1,5 +1,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE TemplateHaskell #-}
 
 module LoLDatas
   ( ChampionInfo (..),
@@ -17,33 +18,18 @@ module LoLDatas
 where
 
 import Data.Aeson
+import Data.Char
+import Control.Lens
 import GHC.Generics
 import Network.HTTP.Simple
 
-instance FromJSON ChampionInfo
-
-instance FromJSON ChampionMasteryDTO
-
-instance FromJSON SummonerDTO
-
-instance FromJSON CurrentGameInfo
-
-instance FromJSON BannedChampion
-
-instance FromJSON Observer
-
-instance FromJSON CurrentGameParticipant
-
-instance FromJSON Perks
-
-instance FromJSON GameCustomizationObject
-
 data ChampionInfo = ChampionInfo
-  { freeChampionIds :: [Int],
-    freeChampionIdsForNewPlayers :: [Int],
-    maxNewPlayerLevel :: Int
-  }
-  deriving (Show, Generic)
+  { _freeChampionIds :: [Int]
+  , _freeChampionIdsForNewPlayers :: [Int]
+  , _maxNewPlayerLevel :: Int
+  } deriving (Show, Generic)
+
+makeLenses ''ChampionInfo
 
 data ChampionMasteryDTO = ChampionMasteryDTO
   { championId :: Int,
@@ -59,13 +45,13 @@ data ChampionMasteryDTO = ChampionMasteryDTO
   deriving (Show, Generic)
 
 data SummonerDTO = SummonerDTO
-  { id :: String,
-    accountId :: String,
-    puuid :: String,
-    name :: String,
-    profileIconId :: Int,
-    revisionDate :: Int,
-    summonerLevel :: Int
+  { id :: String
+  , accountId :: String
+  , puuid :: String
+  , name :: String
+  , profileIconId :: Int
+  , revisionDate :: Int
+  , summonerLevel :: Int
   }
   deriving (Show, Generic)
 
@@ -123,6 +109,17 @@ data GameCustomizationObject = GameCustomizationObject
   }
   deriving (Show, Generic)
 
+instance FromJSON ChampionInfo where
+  parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = drop 1 } 
+instance FromJSON ChampionMasteryDTO
+instance FromJSON SummonerDTO
+instance FromJSON CurrentGameInfo
+instance FromJSON BannedChampion
+instance FromJSON Observer
+instance FromJSON CurrentGameParticipant
+instance FromJSON Perks
+instance FromJSON GameCustomizationObject
+
 type Api_key = String
 
 data Region = BR1 | EUN1 | EUW1 | JP1 | KR | LA1 | LA2 | NA1 | OC1 | TR1 | RU
@@ -139,3 +136,6 @@ instance Show Region where
   show OC1 = "oc1.api.riotgames.com"
   show TR1 = "tr1.api.riotgames.com"
   show RU = "ru.api.riotgames.com"
+
+--a = ChampionInfo { _championinfofreeChampionIds = [], _championinfofreeChampionIdsForNewPlayers = [], _championinfomaxNewPlayerLevel = 3 } 
+--b = a ^. freeChampionIds
