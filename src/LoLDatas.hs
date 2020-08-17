@@ -19,17 +19,14 @@ where
 
 import Data.Aeson
 import Data.Char
-import Control.Lens
 import GHC.Generics
 import Network.HTTP.Simple
 
 data ChampionInfo = ChampionInfo
-  { _freeChampionIds :: [Int]
-  , _freeChampionIdsForNewPlayers :: [Int]
-  , _maxNewPlayerLevel :: Int
+  { freeChampionIds :: [Int]
+  , freeChampionIdsForNewPlayers :: [Int]
+  , maxNewPlayerLevel :: Int
   } deriving (Show, Generic)
-
-makeLenses ''ChampionInfo
 
 data ChampionMasteryDTO = ChampionMasteryDTO
   { championId :: Int,
@@ -109,8 +106,7 @@ data GameCustomizationObject = GameCustomizationObject
   }
   deriving (Show, Generic)
 
-instance FromJSON ChampionInfo where
-  parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = drop 1 } 
+instance FromJSON ChampionInfo
 instance FromJSON ChampionMasteryDTO
 instance FromJSON SummonerDTO
 instance FromJSON CurrentGameInfo
