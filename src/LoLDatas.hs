@@ -1,8 +1,12 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE FunctionalDependencies #-}
+{-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE TemplateHaskell #-}
 
-module LoLDatas
+module LoLDatas where
+
+{-
   ( ChampionInfo (..),
     ChampionMasteryDTO (..),
     SummonerDTO (..),
@@ -15,7 +19,7 @@ module LoLDatas
     Api_key,
     Region (..),
   )
-where
+-}
 
 import Data.Aeson
 import Data.Char
@@ -24,101 +28,107 @@ import GHC.Generics
 import Network.HTTP.Simple
 
 data ChampionInfo = ChampionInfo
-  { _freeChampionIds :: [Int]
-  , _freeChampionIdsForNewPlayers :: [Int]
-  , _maxNewPlayerLevel :: Int
+  { _championInfoFreeChampionIds :: [Int]
+  , _championInfoFreeChampionIdsForNewPlayers :: [Int]
+  , _championInfoMaxNewPlayerLevel :: Int
   } deriving (Show, Generic)
 
-makeLenses ''ChampionInfo
-
 data ChampionMasteryDTO = ChampionMasteryDTO
-  { championId :: Int,
-    championLevel :: Int,
-    championPoints :: Int,
-    lastPlayTime :: Int,
-    championPointsSinceLastLevel :: Int,
-    championPointsUntilNextLevel :: Int,
-    chestGranted :: Bool,
-    tokensEarned :: Int,
-    summonerId :: String
-  }
-  deriving (Show, Generic)
+  { _championMasteryDTOChampionId :: Int,
+    _championMasteryDTOChampionLevel :: Int,
+    _championMasteryDTOChampionPoints :: Int,
+    _championMasteryDTOLastPlayTime :: Int,
+    _championMasteryDTOChampionPointsSinceLastLevel :: Int,
+    _championMasteryDTOChampionPointsUntilNextLevel :: Int,
+    _championMasteryDTOChestGranted :: Bool,
+    _championMasteryDTOTokensEarned :: Int,
+    _championMasteryDTOSummonerId :: String
+  } deriving (Show, Generic)
 
 data SummonerDTO = SummonerDTO
-  { id :: String
-  , accountId :: String
-  , puuid :: String
-  , name :: String
-  , profileIconId :: Int
-  , revisionDate :: Int
-  , summonerLevel :: Int
-  }
-  deriving (Show, Generic)
+  { _summonerDTOId :: String
+  , _summonerDTOAccountId :: String
+  , _summonerDTOPuuid :: String
+  , _summonerDTOName :: String
+  , _summonerDTOProfileIconId :: Int
+  , _summonerDTORevisionDate :: Int
+  , _summonerDTOSummonerLevel :: Int
+  } deriving (Show, Generic)
 
 data CurrentGameInfo = CurrentGameInfo
-  { gameId :: Int,
-    gameType :: String,
-    gameStartTime :: Int,
-    mapId :: Int,
-    gameLength :: Int,
-    platformId :: String,
-    gameMode :: String,
-    bannedChampions :: [BannedChampion],
-    gameQueueConfigId :: Int,
-    observers :: Observer,
-    participants :: [CurrentGameParticipant]
-  }
-  deriving (Show, Generic)
+  { _currentGameInfoGameId :: Int,
+    _currentGameInfoGameType :: String,
+    _currentGameInfoGameStartTime :: Int,
+    _currentGameInfoMapId :: Int,
+    _currentGameInfoGameLength :: Int,
+    _currentGameInfoPlatformId :: String,
+    _currentGameInfoGameMode :: String,
+    _currentGameInfoBannedChampions :: [BannedChampion],
+    _currentGameInfoGameQueueConfigId :: Int,
+    _currentGameInfoObservers :: Observer,
+    _currentGameInfoParticipants :: [CurrentGameParticipant]
+  } deriving (Show, Generic)
 
 data BannedChampion = BannedChampion
-  { pickTurn :: Int,
-    championId :: Int,
-    teamId :: Int
-  }
-  deriving (Show, Generic)
+  { _bannedChampionPickTurn :: Int,
+    _bannedChampionChampionId :: Int,
+    _bannedChampionTeamId :: Int
+  } deriving (Show, Generic)
 
 data Observer = Observer
-  { encryptionKey :: String
-  }
-  deriving (Show, Generic)
+  { _observerEncryptionKey :: String
+  } deriving (Show, Generic)
 
 data CurrentGameParticipant = CurrentGameParticipant
-  { championId :: Int,
-    perks :: Perks,
-    profileIconId :: Int,
-    bot :: Bool,
-    teamId :: Int,
-    summonerName :: String,
-    summonerId :: String,
-    spell1Id :: Int,
-    spell2Id :: Int,
-    gameCustomizationObjects :: [GameCustomizationObject]
-  }
-  deriving (Show, Generic)
+  { _currentGameParticipantChampionId :: Int,
+    _currentGameParticipantPerks :: Perks,
+    _currentGameParticipantProfileIconId :: Int,
+    _currentGameParticipantBot :: Bool,
+    _currentGameParticipantTeamId :: Int,
+    _currentGameParticipantSummonerName :: String,
+    _currentGameParticipantSummonerId :: String,
+    _currentGameParticipantSpell1Id :: Int,
+    _currentGameParticipantSpell2Id :: Int,
+    _currentGameParticipantGameCustomizationObjects :: [GameCustomizationObject]
+  } deriving (Show, Generic)
 
 data Perks = Perks
-  { perkIds :: [Int],
-    perkStyle :: Int,
-    perkSubStyle :: Int
-  }
-  deriving (Show, Generic)
+  { _perksPerkIds :: [Int],
+    _perksPerkStyle :: Int,
+    _perksPerkSubStyle :: Int
+  } deriving (Show, Generic)
 
 data GameCustomizationObject = GameCustomizationObject
-  { category :: String,
-    content :: String
-  }
-  deriving (Show, Generic)
+  { _gameCustomizationObjectCategory :: String,
+    _gameCustomizationObjectContent :: String
+  } deriving (Show, Generic)
+
+makeFields ''ChampionInfo
+makeFields ''ChampionMasteryDTO
+makeFields ''SummonerDTO
+makeFields ''CurrentGameInfo
+makeFields ''BannedChampion
+makeFields ''CurrentGameParticipant
+makeFields ''GameCustomizationObject
 
 instance FromJSON ChampionInfo where
-  parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = drop 1 } 
-instance FromJSON ChampionMasteryDTO
-instance FromJSON SummonerDTO
-instance FromJSON CurrentGameInfo
-instance FromJSON BannedChampion
-instance FromJSON Observer
-instance FromJSON CurrentGameParticipant
-instance FromJSON Perks
-instance FromJSON GameCustomizationObject
+  parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_ChampionInfo") } 
+instance FromJSON ChampionMasteryDTO where
+  parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_ChampionMasteryDTO") }
+instance FromJSON SummonerDTO where
+  parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_SummonerDTO") } 
+instance FromJSON CurrentGameInfo where
+  parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_CurrentGameInfo") } 
+instance FromJSON BannedChampion where
+  parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_BannedChampion") } 
+instance FromJSON Observer where
+  parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_Observer") } 
+instance FromJSON CurrentGameParticipant where
+  parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_CurrentGameParticipant") } 
+instance FromJSON Perks where
+  parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_Perks") } 
+instance FromJSON GameCustomizationObject where
+  parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_GameCustomizationObject") } 
 
 type Api_key = String
 
