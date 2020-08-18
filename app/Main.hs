@@ -8,7 +8,7 @@ import LoLDatas
 import Control.Lens
 import Prelude hiding (id)
 
-api_key = "RGAPI-332dedd0-7a60-4b45-86fb-7a34b94d4ed3" --ADD YOUR API KEY
+api_key = "RGAPI-e5a17a75-1dd1-4a29-8ff9-57764ea4ed3f" --ADD YOUR API KEY
 
 main :: IO ()
 main = do
@@ -19,6 +19,7 @@ main = do
   --名前からサモナーの情報を取得
   summoner <- summoner_by_name api_key JP1 "ツナカユリコ" --ADD YOUR SOMMONER NAME
   
+
   putStr "サモナーネーム : " >> print ( summoner ^. name )
   putStr "サモナーレベル : " >> print ( summoner ^. summonerLevel )
   putStr "サモナーid : " >> print ( summoner ^. id )
