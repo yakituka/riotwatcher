@@ -2,9 +2,9 @@ module API.Champion
     ( champion_rotations
     ) where
 
-import LoLDatas
-import Network.HTTP.Simple
-import Data.Aeson
+import           Data.Aeson
+import           LoLDatas
+import           Network.HTTP.Simple
 
 --フリーチャンピオンに関する情報を取得する。
 champion_rotations :: Api_key -> Region -> IO ChampionInfo

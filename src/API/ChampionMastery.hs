@@ -5,9 +5,9 @@ module API.ChampionMastery
   )
 where
 
-import Data.Aeson
-import LoLDatas
-import Network.HTTP.Simple
+import           Data.Aeson
+import           LoLDatas
+import           Network.HTTP.Simple
 
 --サモナー[summoner_id]の、特定のチャンピオン[champion_id]のマスタリーポイント等に関する情報を取得する。
 champion_mastery :: Api_key -> Region -> String -> String -> IO ChampionMasteryDTO
