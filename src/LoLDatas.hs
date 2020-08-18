@@ -6,21 +6,6 @@
 
 module LoLDatas where
 
-{-
-  ( ChampionInfo (..),
-    ChampionMasteryDTO (..),
-    SummonerDTO (..),
-    CurrentGameInfo (..),
-    BannedChampion (..),
-    Observer (..),
-    CurrentGameParticipant (..),
-    Perks (..),
-    GameCustomizationObject (..),
-    Api_key,
-    Region (..),
-  )
--}
-
 import Data.Aeson
 import Data.Char
 import Control.Lens
@@ -34,15 +19,15 @@ data ChampionInfo = ChampionInfo
   } deriving (Show, Generic)
 
 data ChampionMasteryDTO = ChampionMasteryDTO
-  { _championMasteryDTOChampionId :: Int,
-    _championMasteryDTOChampionLevel :: Int,
-    _championMasteryDTOChampionPoints :: Int,
-    _championMasteryDTOLastPlayTime :: Int,
-    _championMasteryDTOChampionPointsSinceLastLevel :: Int,
-    _championMasteryDTOChampionPointsUntilNextLevel :: Int,
-    _championMasteryDTOChestGranted :: Bool,
-    _championMasteryDTOTokensEarned :: Int,
-    _championMasteryDTOSummonerId :: String
+  { _championMasteryDTOChampionId :: Int
+  , _championMasteryDTOChampionLevel :: Int
+  , _championMasteryDTOChampionPoints :: Int
+  , _championMasteryDTOLastPlayTime :: Int
+  , _championMasteryDTOChampionPointsSinceLastLevel :: Int
+  , _championMasteryDTOChampionPointsUntilNextLevel :: Int
+  , _championMasteryDTOChestGranted :: Bool
+  , _championMasteryDTOTokensEarned :: Int
+  , _championMasteryDTOSummonerId :: String
   } deriving (Show, Generic)
 
 data SummonerDTO = SummonerDTO
@@ -146,6 +131,3 @@ instance Show Region where
   show OC1 = "oc1.api.riotgames.com"
   show TR1 = "tr1.api.riotgames.com"
   show RU = "ru.api.riotgames.com"
-
---a = ChampionInfo { _championinfofreeChampionIds = [], _championinfofreeChampionIdsForNewPlayers = [], _championinfomaxNewPlayerLevel = 3 } 
---b = a ^. freeChampionIds
