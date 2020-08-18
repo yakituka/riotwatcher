@@ -5,9 +5,9 @@ module API.Summoner
     , summoner_by_puuid
     ) where
 
-import LoLDatas
-import Network.HTTP.Simple
-import Data.Aeson
+import           Data.Aeson
+import           LoLDatas
+import           Network.HTTP.Simple
 
 --アカウントIDからサモナーの情報を取得する。
 summoner_by_account :: Api_key -> Region -> String -> IO SummonerDTO
