@@ -16,6 +16,7 @@ main = do
   rotations <- champion_rotations api_key JP1
   putStr "今週のチャンピオン : " >> print ( rotations ^. freeChampionIds )
 
+
   --名前からサモナーの情報を取得
   summoner <- summoner_by_name api_key JP1 "ツナカユリコ" --ADD YOUR SOMMONER NAME
 

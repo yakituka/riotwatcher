@@ -1,3 +1,4 @@
+
 {-# LANGUAGE DeriveGeneric          #-}
 {-# LANGUAGE DuplicateRecordFields  #-}
 {-# LANGUAGE FlexibleInstances      #-}
@@ -16,6 +17,7 @@ data ChampionInfo = ChampionInfo
   { _championInfoFreeChampionIds              :: [Int]
   , _championInfoFreeChampionIdsForNewPlayers :: [Int]
   , _championInfoMaxNewPlayerLevel            :: Int
+
   } deriving (Show, Generic)
 
 data ChampionMasteryDTO = ChampionMasteryDTO
@@ -95,6 +97,7 @@ makeFields ''CurrentGameInfo
 makeFields ''BannedChampion
 makeFields ''CurrentGameParticipant
 makeFields ''GameCustomizationObject
+
 
 instance FromJSON ChampionInfo where
   parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_ChampionInfo") }
