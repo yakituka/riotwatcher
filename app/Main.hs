@@ -8,14 +8,13 @@ import           Control.Lens
 import           LoLDatas
 import           Prelude             hiding (id)
 
-api_key = "RGAPI-e5a17a75-1dd1-4a29-8ff9-57764ea4ed3f" --ADD YOUR API KEY
+api_key = "RGAPI-a41a29f0-bcfc-4db8-ad15-b8c82bcf1df6" --ADD YOUR API KEY
 
 main :: IO ()
 main = do
   --今週のフリーチャンピオンの取得
   rotations <- champion_rotations api_key JP1
   putStr "今週のチャンピオン : " >> print ( rotations ^. freeChampionIds )
-
 
   --名前からサモナーの情報を取得
   summoner <- summoner_by_name api_key JP1 "ツナカユリコ" --ADD YOUR SOMMONER NAME

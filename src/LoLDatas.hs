@@ -1,9 +1,8 @@
-
-{-# LANGUAGE DeriveGeneric          #-}
 {-# LANGUAGE DuplicateRecordFields  #-}
 {-# LANGUAGE FlexibleInstances      #-}
 {-# LANGUAGE FunctionalDependencies #-}
 {-# LANGUAGE TemplateHaskell        #-}
+{-# LANGUAGE DeriveGeneric          #-}
 
 module LoLDatas where
 
@@ -56,6 +55,35 @@ data CurrentGameInfo = CurrentGameInfo
   , _currentGameInfoParticipants      :: [CurrentGameParticipant]
   } deriving (Show, Generic)
 
+data FeaturedGames = FeaturedGames
+  { _featuredGamesGameList :: [FeaturedGameInfo]
+  , _featuredGamesClientRefreshInterval :: Int
+  } deriving (Show, Generic)
+
+data FeaturedGameInfo = FeaturedGameInfo
+  { _featuredGameInfoGameMode :: String
+  , _featuredGameInfoGameLength :: Int
+  , _featuredGameInfoMapId :: Int
+  , _featuredGameInfoGameType :: String
+  , _featuredGameInfoBannedChampions :: [BannedChampion]
+  , _featuredGameInfoGameId :: Int
+  , _featuredGameInfoObservers :: [Observer]
+  , _featuredGameInfoGameQueueConfigId :: Int
+  , _featuredGameInfoGameSTratTime :: Int
+  , _featuredGameInfoParticipants :: [Participant]
+  , _featuredGameInfoPlatformId :: String
+  } deriving (Show, Generic)
+
+data Participant = Participant
+  { _participantBot :: Bool
+  , _participantSpell2Id :: Int
+  , _participantProfileIconId :: Int
+  , _participantSummonerName :: String
+  , _participantChampionId :: Int
+  , _participantTeamId :: Int
+  , _participantSpell1Id :: Int
+  } deriving (Show, Generic)
+
 data BannedChampion = BannedChampion
   { _bannedChampionPickTurn   :: Int
   , _bannedChampionChampionId :: Int
@@ -94,10 +122,12 @@ makeFields ''ChampionInfo
 makeFields ''ChampionMasteryDTO
 makeFields ''SummonerDTO
 makeFields ''CurrentGameInfo
+makeFields ''FeaturedGames
+makeFields ''FeaturedGameInfo
+makeFields ''Participant
 makeFields ''BannedChampion
 makeFields ''CurrentGameParticipant
 makeFields ''GameCustomizationObject
-
 
 instance FromJSON ChampionInfo where
   parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_ChampionInfo") }
@@ -107,6 +137,12 @@ instance FromJSON SummonerDTO where
   parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_SummonerDTO") }
 instance FromJSON CurrentGameInfo where
   parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_CurrentGameInfo") }
+instance FromJSON FeaturedGames where
+  parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_FeaturdGames") }
+instance FromJSON FeaturedGameInfo where
+  parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_FeaturedGameInfo") }
+instance FromJSON Participant where
+  parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_Participant") }
 instance FromJSON BannedChampion where
   parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_BannedChampion") }
 instance FromJSON Observer where
