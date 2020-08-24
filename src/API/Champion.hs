@@ -1,6 +1,7 @@
 module API.Champion
-    ( champion_rotations
-    ) where
+  ( champion_rotations
+  )
+  where
 
 import           Data.Aeson
 import           LoLDatas

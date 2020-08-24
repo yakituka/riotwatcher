@@ -1,8 +1,8 @@
+{-# LANGUAGE DeriveGeneric          #-}
 {-# LANGUAGE DuplicateRecordFields  #-}
 {-# LANGUAGE FlexibleInstances      #-}
 {-# LANGUAGE FunctionalDependencies #-}
 {-# LANGUAGE TemplateHaskell        #-}
-{-# LANGUAGE DeriveGeneric          #-}
 
 module LoLDatas where
 
@@ -11,6 +11,13 @@ import           Data.Aeson
 import           Data.Char
 import           GHC.Generics
 import           Network.HTTP.Simple
+
+data AccountDTO = AccountDTO
+  { _accountDTOPuuid    :: String
+  , _accountDTOGameName :: String
+  , _accountDTOTagLine  :: String
+
+  } deriving (Show, Generic)
 
 data ChampionInfo = ChampionInfo
   { _championInfoFreeChampionIds              :: [Int]
@@ -56,32 +63,32 @@ data CurrentGameInfo = CurrentGameInfo
   } deriving (Show, Generic)
 
 data FeaturedGames = FeaturedGames
-  { _featuredGamesGameList :: [FeaturedGameInfo]
+  { _featuredGamesGameList              :: [FeaturedGameInfo]
   , _featuredGamesClientRefreshInterval :: Int
   } deriving (Show, Generic)
 
 data FeaturedGameInfo = FeaturedGameInfo
-  { _featuredGameInfoGameMode :: String
-  , _featuredGameInfoGameLength :: Int
-  , _featuredGameInfoMapId :: Int
-  , _featuredGameInfoGameType :: String
-  , _featuredGameInfoBannedChampions :: [BannedChampion]
-  , _featuredGameInfoGameId :: Int
-  , _featuredGameInfoObservers :: [Observer]
+  { _featuredGameInfoGameMode          :: String
+  , _featuredGameInfoGameLength        :: Int
+  , _featuredGameInfoMapId             :: Int
+  , _featuredGameInfoGameType          :: String
+  , _featuredGameInfoBannedChampions   :: [BannedChampion]
+  , _featuredGameInfoGameId            :: Int
+  , _featuredGameInfoObservers         :: [Observer]
   , _featuredGameInfoGameQueueConfigId :: Int
-  , _featuredGameInfoGameSTratTime :: Int
-  , _featuredGameInfoParticipants :: [Participant]
-  , _featuredGameInfoPlatformId :: String
+  , _featuredGameInfoGameSTratTime     :: Int
+  , _featuredGameInfoParticipants      :: [Participant]
+  , _featuredGameInfoPlatformId        :: String
   } deriving (Show, Generic)
 
 data Participant = Participant
-  { _participantBot :: Bool
-  , _participantSpell2Id :: Int
+  { _participantBot           :: Bool
+  , _participantSpell2Id      :: Int
   , _participantProfileIconId :: Int
-  , _participantSummonerName :: String
-  , _participantChampionId :: Int
-  , _participantTeamId :: Int
-  , _participantSpell1Id :: Int
+  , _participantSummonerName  :: String
+  , _participantChampionId    :: Int
+  , _participantTeamId        :: Int
+  , _participantSpell1Id      :: Int
   } deriving (Show, Generic)
 
 data BannedChampion = BannedChampion
@@ -118,6 +125,7 @@ data GameCustomizationObject = GameCustomizationObject
   , _gameCustomizationObjectContent  :: String
   } deriving (Show, Generic)
 
+makeFields ''AccountDTO
 makeFields ''ChampionInfo
 makeFields ''ChampionMasteryDTO
 makeFields ''SummonerDTO
@@ -129,6 +137,9 @@ makeFields ''BannedChampion
 makeFields ''CurrentGameParticipant
 makeFields ''GameCustomizationObject
 
+
+instance FromJSON AccountDTO where
+  parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_AccountDTO") }
 instance FromJSON ChampionInfo where
   parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_ChampionInfo") }
 instance FromJSON ChampionMasteryDTO where
@@ -170,3 +181,10 @@ instance Show Region where
   show OC1  = "oc1.api.riotgames.com"
   show TR1  = "tr1.api.riotgames.com"
   show RU   = "ru.api.riotgames.com"
+
+data GlobalRegion = ASIA | EUROPE | AMERICAS
+
+instance Show GlobalRegion where
+  show ASIA     = "asia.api.riotgames.com"
+  show EUROPE   = "europe.api.riotgames.com"
+  show AMERICAS = "americas.api.riotgames.com"

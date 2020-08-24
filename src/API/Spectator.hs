@@ -1,7 +1,8 @@
 module API.Spectator
-    ( spectator_by_summoner
-    , spectator_featured_games
-    ) where
+  ( spectator_by_summoner
+  , spectator_featured_games
+  )
+  where
 
 import           Control.Exception
 import           Data.Aeson

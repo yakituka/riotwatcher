@@ -1,7 +1,7 @@
 module API.ChampionMastery
-  (   champion_mastery
-    , champion_masteries
-    , mastery_points
+  ( champion_mastery
+  , champion_masteries
+  , mastery_points
   )
 where
 

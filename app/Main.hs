@@ -1,5 +1,6 @@
 module Main where
 
+import           API.Account
 import           API.Champion
 import           API.ChampionMastery
 import           API.Spectator
@@ -8,7 +9,7 @@ import           Control.Lens
 import           LoLDatas
 import           Prelude             hiding (id)
 
-api_key = "RGAPI-a41a29f0-bcfc-4db8-ad15-b8c82bcf1df6" --ADD YOUR API KEY
+api_key = "RGAPI-14bba706-700c-4b90-98fb-1e5b73263f35" --ADD YOUR API KEY
 
 main :: IO ()
 main = do
@@ -19,7 +20,7 @@ main = do
   --名前からサモナーの情報を取得
   summoner <- summoner_by_name api_key JP1 "ツナカユリコ" --ADD YOUR SOMMONER NAME
 
-
   putStr "サモナーネーム : " >> print ( summoner ^. name )
   putStr "サモナーレベル : " >> print ( summoner ^. summonerLevel )
   putStr "サモナーid : " >> print ( summoner ^. id )
+  putStr "puuid : " >> print  (summoner ^. puuid)
