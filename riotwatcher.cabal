@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 706cb95fbb703c5cc9929d76823b54f4f774988cf9a8b7931ccc2153d775a15f
+-- hash: 9454bdcfaceffdfc96dae8b755d4d419e7ad2384891cb634df8d4b48a52377ff
 
 name:           riotwatcher
 version:        0.1.0.0
@@ -30,6 +30,7 @@ library
       API.Account
       API.Champion
       API.ChampionMastery
+      API.League
       API.Spectator
       API.Summoner
       LoLDatas
@@ -43,6 +44,7 @@ library
     , base >=4.7 && <5
     , http-conduit
     , lens
+    , containers
   default-language: Haskell2010
 
 executable riotwatcher-exe

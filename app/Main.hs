@@ -3,13 +3,14 @@ module Main where
 import           API.Account
 import           API.Champion
 import           API.ChampionMastery
+import           API.League
 import           API.Spectator
 import           API.Summoner
 import           Control.Lens
 import           LoLDatas
 import           Prelude             hiding (id)
 
-api_key = "RGAPI-14bba706-700c-4b90-98fb-1e5b73263f35" --ADD YOUR API KEY
+api_key = "RGAPI-bc962cf0-55bc-4689-8c33-3ee54fee2d49" --ADD YOUR API KEY
 
 main :: IO ()
 main = do

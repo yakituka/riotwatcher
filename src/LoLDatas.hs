@@ -125,6 +125,51 @@ data GameCustomizationObject = GameCustomizationObject
   , _gameCustomizationObjectContent  :: String
   } deriving (Show, Generic)
 
+data MiniSeriesDTO = MiniSeriesDTO
+  { _MiniSeriesDTOLosses   :: Int
+  , _MiniSeriesDTOProgress ::String
+  , _MiniSeriesDTOTarget   :: Int
+  , _MiniSeriesDTOWins     :: Int
+  } deriving(Show,Generic)
+
+data LeagueItemDTO = LeagueItemDTO
+  { _LeagueItemDTOFreshBlood   ::Bool
+  , _LeagueItemDTOWins         :: Int
+  , _LeagueItemDTOSummonerName :: String
+  , _LeagueItemDTOMiniSeries   :: MiniSeriesDTO
+  , _LeagueItemDTOInactive     :: Bool
+  , _LeagueItemDTOVeteran      ::Bool
+  , _LeagueItemDTOHotStreak    :: Bool
+  , _LeagueItemDTORank         :: String
+  , _LeagueItemDTOLeaguePoints :: Int
+  , _LeagueItemDTOLosses       :: Int
+  , _LeagueItemDTOSummonerId   :: String
+  } deriving(Show,Generic)
+
+data LeagueListDTO = LeagueListDTO
+  { _leagueListDTOLeagueId :: String
+  , _leagueListDTOEntries  :: [LeagueItemDTO]
+  , _leagueListDTOTier     :: String
+  , _leagueListDTOName     :: String
+  , _leagueListDTOQueue    :: String
+  } deriving (Show,Generic)
+
+data LeagueEntryDTO = LeagueEntryDTO
+  { _leagueEntryDTOLeagueId     :: String
+  , _leagueEntryDTOSummonerId   :: String
+  , _leagueEntryDTOSummonerName :: String
+  , _leagueEntryDTOQueueType    :: String
+  , _leagueEntryDTOTier         :: String
+  , _leagueEntryDTORank         :: String
+  , _leagueEntryDTOLeaguePoint  :: Int
+  , _leagueEntryDTOWins         :: Int
+  , _leagueEntryDTOLoses        :: Int
+  , _leagueEntryDTOHotStreak    :: Bool
+  , _leagueEntryDTOVeteran      :: Bool
+  , _leagueEntryDTOFreshBlood   :: Bool
+  , _leagueEntryDTOInactive     :: Bool
+  , _leagueEntryDTOMiniSeries   :: MiniSeriesDTO
+  } deriving(Show,Generic)
 makeFields ''AccountDTO
 makeFields ''ChampionInfo
 makeFields ''ChampionMasteryDTO
@@ -136,7 +181,10 @@ makeFields ''Participant
 makeFields ''BannedChampion
 makeFields ''CurrentGameParticipant
 makeFields ''GameCustomizationObject
-
+makeFields ''MiniSeriesDTO
+makeFields ''LeagueItemDTO
+makeFields ''LeagueListDTO
+makeFields ''LeagueEntryDTO
 
 instance FromJSON AccountDTO where
   parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_AccountDTO") }
@@ -164,6 +212,15 @@ instance FromJSON Perks where
   parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_Perks") }
 instance FromJSON GameCustomizationObject where
   parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_GameCustomizationObject") }
+instance FromJSON MiniSeriesDTO where
+  parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_MiniSeriesDTO") }
+instance FromJSON LeagueItemDTO where
+  parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_LeagueItemDTO") }
+instance FromJSON LeagueListDTO where
+  parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_LeagueListDTO") }
+instance FromJSON LeagueEntryDTO where
+  parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_LeagueEntryDTO") }
+
 
 type Api_key = String
 
