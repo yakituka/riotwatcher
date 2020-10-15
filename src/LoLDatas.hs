@@ -170,6 +170,80 @@ data LeagueEntryDTO = LeagueEntryDTO
   , _leagueEntryDTOInactive     :: Bool
   , _leagueEntryDTOMiniSeries   :: MiniSeriesDTO
   } deriving(Show,Generic)
+
+data MatchDTO = MatchDTO
+  { _matchDTOGameId :: Int
+  , _matchDTOParticipantIdentities :: Int
+  , _matchDTOQueueId :: Int
+  , _matchDTOGameType :: String
+  , _matchDTOGameDuration :: Int
+  , _matchDTOTeams :: Int
+  , _matchDTOPlatformId ::String
+  , _matchDTOGameCreation :: Int
+  , _matchDTOSessionId :: Int
+  , _matchDTOGameVersion :: String
+  , _matchDTOMapId :: Int
+  , _matchDTOGameMode :: String
+  , _matchDTOParticipants ::Int
+  } deriving(Show,Generic)
+
+data ParticipantIdentityDTO = ParticipantIdentityDTO
+  { _participantidentifyDTOParticipantId :: Int
+  , _participantidentifyDTOPlayer :: Int
+  } deriving(Show,Generic)
+
+data PlayerDTO = PlayerDTO
+  { _playerDTOProfileIcon :: Int
+  , _playerDTOAccountId :: String
+  , _playerDTOMatchHistoryUri :: String
+  , _playerDTOCurrentAccountId :: String
+  , _playerDTOCurrentPlatformId :: String
+  , _playerDTOSummonerName :: String
+  , _playerDTOSummonerId :: String
+  , _playerDTOPlatformId :: String
+  } deriving(Show,Generic)
+
+data TeamStatsDTO = TeamStatsDTO
+  { _teamStatsDTOTowerKills :: Int
+  , _teamStatsDTORiftHeraldKills ::Int
+  , _teamStatsDTOFirstBlood :: Bool
+  , _teamStatsDTOInhibitorKills :: Int
+  , _teamStatsDTOBans :: Int
+  , _teamStatsDTOFirstBaron :: Bool
+  , _teamStatsDTOFirstDragon :: Bool
+  , _teamStatsDTODominionVictoryScore :: Int
+  , _teamStatsDTODragonKills :: Int
+  , _teamStatsDTOBaronKills :: Int
+  , _teamStatsDTOFirstInhibitor :: Bool
+  , _teamStatsDTOFirstTower :: Bool
+  , _teamStatsDTOVilemawKills :: Int
+  , _teamStatsDTOFirstRiftHerald :: Bool
+  , _teamStatsDTOTeamId :: Int
+  , _teamStatsDTOWin :: Bool
+  } deriving(Show,Generic)
+
+data TeamBansDTO = TeamBansDTO
+  { _teamBansDTOChampionId :: Int
+  , _teamBansDTOPickTurn :: Int
+  } deriving(Show,Generic)
+  
+data ParticipantDTO = ParticipantDTO
+  { _participantDTOParticipantId :: Int
+  , _participantDTOChampionId :: Int
+  , _participantDTORunes :: Int
+  , _participantDTOStats :: Int
+  , _participantDTOTeamId :: Int
+  , _participantDTOTimeline :: Int
+  , _participantDTOSpell1Id :: Int
+  , _participantDTOSpell2Id :: Int
+  , _participantDTOHighestAchievedSeasonTier :: String
+  , _participantDTOMasteries :: Int
+  } deriving(Show,Generic)
+
+data RuneDTO = RuneDTO
+  { _RuneDTORuneId :: Int
+  , _RuneDTORank :: Int
+  } deriving(Show,Generic)
 makeFields ''AccountDTO
 makeFields ''ChampionInfo
 makeFields ''ChampionMasteryDTO
@@ -185,7 +259,13 @@ makeFields ''MiniSeriesDTO
 makeFields ''LeagueItemDTO
 makeFields ''LeagueListDTO
 makeFields ''LeagueEntryDTO
-
+makeFields ''MatchDTO
+makeFields ''ParticipantIdentifyDTO
+makeFields ''PlayerDTO
+makeFields ''TeamStatsDTO
+makeFields ''TemaBansDTO
+makeFields ''ParticipantDTO
+makeFields ''RuneDTO
 instance FromJSON AccountDTO where
   parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_AccountDTO") }
 instance FromJSON ChampionInfo where
@@ -220,6 +300,20 @@ instance FromJSON LeagueListDTO where
   parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_LeagueListDTO") }
 instance FromJSON LeagueEntryDTO where
   parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_LeagueEntryDTO") }
+instance FromJSON MatchDTO where
+  parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_MatchDTO") }
+instance FromJSON ParticipantIdentityDTO where
+  parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_ParticipantIdentityDTO") }
+instance FromJSON PlayerDTO where
+  parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_PlayerDTO") }
+instance FromJSON TeamStatsDTO where
+  parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_TeamStatsDTO") }
+instance FromJSON TeamBansDTO where
+  parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_TeamBansDTO") }
+instance FromJSON ParticipantDTO where
+  parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_ParticipantDTO") }
+instance FromJSON RuneDTO where
+  parseJSON = genericParseJSON defaultOptions { fieldLabelModifier = (\(s:str) -> toLower s : str) . drop (length "_RuneDTO") }
 
 
 type Api_key = String

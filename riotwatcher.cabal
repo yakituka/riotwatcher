@@ -33,6 +33,7 @@ library
       API.League
       API.Spectator
       API.Summoner
+      API.Match
       LoLDatas
   other-modules:
       Paths_riotwatcher

@@ -18,7 +18,8 @@ challenger_leagues api_key region queue = do
     res <- httpJSON url
     pure $ getResponseBody res
 
-{-entries_by_summoner_id :: Api_key -> Region -> String -> IO Set [LeagueEntryDTO]
+{- TODO!
+    -entries_by_summoner_id :: Api_key -> Region -> String -> IO Set [LeagueEntryDTO]
 entries_by_summoner_id api_key region summoner_id = do
     url <- parseRequest $ "https://" ++ show region ++ "/lol/league/v4/entries/by-summoner/" ++ summoner_id ++ "?api_key=" ++ api_key
     res <- httpJSON url

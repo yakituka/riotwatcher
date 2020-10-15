@@ -10,7 +10,7 @@ import           Control.Lens
 import           LoLDatas
 import           Prelude             hiding (id)
 
-api_key = "RGAPI-bc962cf0-55bc-4689-8c33-3ee54fee2d49" --ADD YOUR API KEY
+api_key = "RGAPI-803ad776-5596-4b1d-b81c-c93a88b554fb" --ADD YOUR API KEY
 
 main :: IO ()
 main = do
