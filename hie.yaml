@@ -1,0 +1,7 @@
+cradle:
+  cabal:
+    - path: "src"
+      component: "lib:riotwatcher"
+
+    - path: "app/Main.hs"
+      component: "riotwatcher:exe:riotwatcher"
