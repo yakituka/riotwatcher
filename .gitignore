@@ -3,3 +3,4 @@
 .vscode
 dist-newstyle/
 dist-newstyle/cache/
+*.local
