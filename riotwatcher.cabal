@@ -15,9 +15,7 @@ common shared-properties
     , http-conduit  ^>=2.3.8
     , lens          ^>=5.0.1
 
-  ghc-options:
-    -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates
-    -Wmissing-import-lists -Wcompat
+
 
 library
   import:           shared-properties
