@@ -1,45 +1,55 @@
-cabal-version:      3.4
+cabal-version:      2.4
 name:               riotwatcher
 version:            0.1.0.0
 maintainer:         p0ngch4ng@gmail.com
 author:             p0ngch4ng
 extra-source-files:
-    ChangeLog.md
-    README.md
+  ChangeLog.md
+  README.md
 
 common shared-properties
   build-depends:
-        base ^>=4.14.1.0,
-        containers ^>=0.6.4.1,
-        lens ^>=5.0.1,
-        aeson^>=1.5.6.0,
-        http-conduit^>=2.3.8
-  ghc-options:      -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates -Wmissing-import-lists -Wcompat
+    , aeson         ^>=1.5.6.0
+    , base          ^>=4.14.1.0
+    , containers    ^>=0.6.4.1
+    , http-conduit  ^>=2.3.8
+    , lens          ^>=5.0.1
+
+  ghc-options:
+    -Wall -Wincomplete-uni-patterns -Wincomplete-record-updates
+    -Wmissing-import-lists -Wcompat
 
 library
-    import:  shared-properties
-    exposed-modules:
-        LoLDatas
-        API.Account
-        API.Match
-        API.ChampionMastery
-        API.Summoner
-        API.Champion
-        API.Spectator
-        API.League
-    hs-source-dirs:   src
-   
-    other-extensions:
-        DeriveGeneric DuplicateRecordFields FlexibleInstances
-        FunctionalDependencies TemplateHaskell
+  import:           shared-properties
 
-    
+  -- cabal-fmt: expand src
+  exposed-modules:
+    API.Account
+    API.Champion
+    API.ChampionMastery
+    API.League
+    API.Match
+    API.Spectator
+    API.Summoner
+    LoLDatas
+
+  hs-source-dirs:   src
+  other-extensions:
+    DeriveGeneric
+    DuplicateRecordFields
+    FlexibleInstances
+    FunctionalDependencies
+    TemplateHaskell
 
 executable riotwatcher
-    import:          shared-properties
-    main-is:          Main.hs
-    hs-source-dirs:   app
-    other-extensions:
-        DeriveGeneric DuplicateRecordFields FlexibleInstances
-        FunctionalDependencies TemplateHaskell
-    build-depends: riotwatcher
+  import:           shared-properties
+  main-is:          Main.hs
+  hs-source-dirs:   app
+  other-extensions:
+    DeriveGeneric
+    DuplicateRecordFields
+    FlexibleInstances
+    FunctionalDependencies
+    TemplateHaskell
+
+  build-depends:    riotwatcher
