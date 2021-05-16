@@ -11,7 +11,7 @@ import LoLDatas
 import System.Environment
 import Prelude hiding (id)
 
-api_key = "RGAPI-49747458-71d7-4907-86cc-de41faa53fb8" --ADD YOUR API KEY
+api_key = "RGAPI-01241179-68d5-4cd0-ae99-ad259a94fb02" --ADD YOUR API KEY
 
 main :: IO ()
 main = do

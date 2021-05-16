@@ -19,7 +19,6 @@ common shared-properties
 
 library
   import:           shared-properties
-
   -- cabal-fmt: expand src
   exposed-modules:
     API.Account
@@ -30,8 +29,7 @@ library
     API.Spectator
     API.Summoner
     LoLDatas
-
-  hs-source-dirs:   src
+  hs-source-dirs:src
   other-extensions:
     DeriveGeneric
     DuplicateRecordFields
@@ -49,5 +47,11 @@ executable riotwatcher
     FlexibleInstances
     FunctionalDependencies
     TemplateHaskell
-
   build-depends:    riotwatcher
+
+test-suite riotwatcher-test
+  import:         shared-properties
+  type:           exitcode-stdio-1.0
+  hs-source-dirs: test
+  main-is:        Spec.hs
+  build-depends:  riotwatcher
