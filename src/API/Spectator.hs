@@ -10,6 +10,7 @@ import LoLDatas
 import Network.HTTP.Conduit
 import Network.HTTP.Simple
 
+--終わってる
 --サモナーIDからライブゲームの情報を取得する。
 spectator_by_summoner :: Api_key -> Region -> String -> IO CurrentGameInfo
 spectator_by_summoner api_key region summoner_id = do

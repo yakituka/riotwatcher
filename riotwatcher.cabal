@@ -1,8 +1,8 @@
 cabal-version:      2.4
 name:               riotwatcher
-version:            0.1.0.0
-maintainer:         p0ngch4ng@gmail.com
-author:             p0ngch4ng
+version:            1.0
+maintainer:         yakituka@yahoo.co.jp
+author:             yakituka
 extra-source-files:
   ChangeLog.md
   README.md
@@ -25,7 +25,6 @@ library
     API.Champion
     API.ChampionMastery
     API.League
-    API.Match
     API.Spectator
     API.Summoner
     LoLDatas
@@ -48,10 +47,3 @@ executable riotwatcher
     FunctionalDependencies
     TemplateHaskell
   build-depends:    riotwatcher
-
-test-suite riotwatcher-test
-  import:         shared-properties
-  type:           exitcode-stdio-1.0
-  hs-source-dirs: test
-  main-is:        Spec.hs
-  build-depends:  riotwatcher

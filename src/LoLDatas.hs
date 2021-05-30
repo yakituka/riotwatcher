@@ -148,7 +148,7 @@ data LeagueItemDTO = LeagueItemDTO
   { _LeagueItemDTOFreshBlood :: Bool,
     _LeagueItemDTOWins :: Int,
     _LeagueItemDTOSummonerName :: String,
-    _LeagueItemDTOMiniSeries :: MiniSeriesDTO,
+    --_LeagueItemDTOMiniSeries :: MiniSeriesDTO,
     _LeagueItemDTOInactive :: Bool,
     _LeagueItemDTOVeteran :: Bool,
     _LeagueItemDTOHotStreak :: Bool,
@@ -175,14 +175,14 @@ data LeagueEntryDTO = LeagueEntryDTO
     _leagueEntryDTOQueueType :: String,
     _leagueEntryDTOTier :: String,
     _leagueEntryDTORank :: String,
-    _leagueEntryDTOLeaguePoint :: Int,
+    _leagueEntryDTOLeaguePoints :: Int,
     _leagueEntryDTOWins :: Int,
-    _leagueEntryDTOLoses :: Int,
+    _leagueEntryDTOLosses :: Int,
     _leagueEntryDTOHotStreak :: Bool,
     _leagueEntryDTOVeteran :: Bool,
     _leagueEntryDTOFreshBlood :: Bool,
-    _leagueEntryDTOInactive :: Bool,
-    _leagueEntryDTOMiniSeries :: MiniSeriesDTO
+    _leagueEntryDTOInactive :: Bool
+    --_leagueEntryDTOMiniSeries :: MiniSeriesDTO
   }
   deriving (Show, Generic)
 

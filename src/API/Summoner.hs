@@ -6,6 +6,7 @@ module API.Summoner
   )
 where
 
+--終わってる
 import Data.Aeson
 import LoLDatas
 import Network.HTTP.Simple
