@@ -4,7 +4,6 @@ import API.Account
 import API.Champion
 import API.ChampionMastery
 import API.League
-import API.Match
 import API.Spectator
 import API.Summoner
 import Control.Lens

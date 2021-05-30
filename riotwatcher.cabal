@@ -25,7 +25,6 @@ library
     API.Champion
     API.ChampionMastery
     API.League
-    API.Match
     API.Spectator
     API.Summoner
     LoLDatas
