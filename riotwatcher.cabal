@@ -48,10 +48,3 @@ executable riotwatcher
     FunctionalDependencies
     TemplateHaskell
   build-depends:    riotwatcher
-
-test-suite riotwatcher-test
-  import:         shared-properties
-  type:           exitcode-stdio-1.0
-  hs-source-dirs: test
-  main-is:        Spec.hs
-  build-depends:  riotwatcher

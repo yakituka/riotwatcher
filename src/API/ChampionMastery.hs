@@ -5,6 +5,8 @@ module API.ChampionMastery
   )
 where
 
+--　終わってる
+
 import Data.Aeson
 import LoLDatas
 import Network.HTTP.Simple

@@ -5,6 +5,3 @@ cradle:
 
     - path: "app/Main.hs"
       component: "riotwatcher:exe:riotwatcher"
-
-    - path: "test"
-      component: "riotwatcher:test:riotwatcher-test"
