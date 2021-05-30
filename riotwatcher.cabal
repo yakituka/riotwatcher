@@ -1,8 +1,8 @@
 cabal-version:      2.4
 name:               riotwatcher
-version:            0.1.0.0
-maintainer:         p0ngch4ng@gmail.com
-author:             p0ngch4ng
+version:            1.0
+maintainer:         yakituka@yahoo.co.jp
+author:             yakituka
 extra-source-files:
   ChangeLog.md
   README.md
